@@ -43,7 +43,6 @@ serve:
   #  top_p: 0.95
   #  top_k: 64
   cache-ram: 0 # prevents crashes
-  no-kv-offload: true
   # kv-unified: true
   ctx-checkpoints: 0
   # lv: 4 # debugging

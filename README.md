@@ -11,10 +11,13 @@ for [Llama_Dispatcher](https://github.com/SomeSunlight/Llama_Dispatcher).
 | `profiles/` | YAML profiles (llama.cpp startup parameters) for this machine |
 | `ensembles/` | YAML ensembles (combinations of multiple profiles) |
 | `engines/` | Engine configuration (Vulkan / SYCL / CUDA) |
-| `data/metrics.db` | SQLite database with benchmark and runtime metrics |
-| `data/thinkpad_models.ini` | Model preset file for llama-server (Multi-Model-Router) |
+| `data/` | Environment-local Dispatcher runtime data; generated files are not versioned |
 
 ## Associated Dispatcher
+
+Generated router presets, metrics databases and SQLite sidecar files under `data/` are recreated locally and intentionally excluded from Git.
+
+The Vulkan engine owns the laptop default `no-kv-offload: true`; individual profiles should override it only when a backend/model combination has been validated separately.
 
 The Dispatcher itself (code, defaults, documentation) is located in the public repo:
 → https://github.com/SomeSunlight/Llama_Dispatcher

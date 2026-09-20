@@ -12,5 +12,7 @@ common:
   flash-attn: on       # Flash Attention für Vulkan aktiv
 
 serve:
-  no-kv-offload: true  # Vulkan kann KV-Cache nicht auf CPU auslagern
+  # Laptop-Vulkan-Baseline: KV-Cache standardmässig im Host-RAM halten.
+  # Nur validierte Profil-Ausnahmen sollen diesen Engine-Default überschreiben.
+  no-kv-offload: true
   cache-ram: 0         # Verhindert Vulkan-spezifische Abstürze bei RAM-Cache
