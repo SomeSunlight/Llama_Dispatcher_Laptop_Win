@@ -47,6 +47,8 @@ The Laptop currently distinguishes these engines explicitly:
 - `vulkan-rtx500` — Vulkan device `1`;
 - `sycl` — Intel Level Zero device selected through `ONEAPI_DEVICE_SELECTOR=level_zero:0`.
 
+Both Vulkan engines own the conservative laptop default `serve.no-kv-offload: true` (keep the KV cache in host RAM). A profile should override this only after that backend/model combination has been validated.
+
 This is deliberate hardware policy, not an operating-system path difference. Profiles point to the engine that matches the hardware they are designed for.
 
 ## Associated Dispatcher
@@ -64,7 +66,7 @@ git clone https://github.com/SomeSunlight/Llama_Dispatcher.git
 cd Llama_Dispatcher
 
 # 2. Clone this instance into the Dispatcher's user-owned instance area
-git clone https://github.com/SomeSunlight/Llama_Dispatcher_Laptop.git instances/Laptop
+git clone https://github.com/SomeSunlight/Llama_Dispatcher_Laptop_Win.git instances/Laptop
 
 # 3. Set up Python environment
 uv sync
@@ -78,7 +80,7 @@ The Dispatcher creates `instances/Laptop/data/metrics.db` locally when needed. D
 
 The model files and versioned profile semantics are shared. Machine-local binary and model roots are supplied at process start and are not duplicated in the instance repository.
 
-For WSL/SYCL use the dedicated `thinkpad-sycl` ensemble. The existing `thinkpad` ensemble remains the Intel/Vulkan configuration. Backend-specific differences are kept separate where they are real; filesystem-root differences are not duplicated.
+For WSL/SYCL use the `thinkpad-sycl-gemma_26B` ensemble. For Intel/Vulkan use `thinkpad-vulkan-intel-gemma_26B`. These names correspond to the versioned files in `ensembles/`. Backend-specific differences are kept separate where they are real; filesystem-root differences are not duplicated.
 
 A WSL run should normally keep its own local database even when Windows tests continue in parallel.
 
@@ -88,7 +90,7 @@ Direct Dispatcher example:
 
 ```bash
 uv run src/dispatcher.py serve \
-  --ensemble thinkpad-sycl \
+  --ensemble thinkpad-sycl-gemma_26B \
   --instance Laptop \
   --bin-dir /path/to/llama.cpp/build/bin \
   --model-root /path/to/models
